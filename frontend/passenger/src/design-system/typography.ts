@@ -2,14 +2,14 @@
 // Editorial + product tone. Satoshi primary, General Sans / Neue Montreal / Inter fallbacks.
 
 export const fontStack = {
-  sans:    "'Satoshi', 'General Sans', 'Neue Montreal', 'Inter', ui-sans-serif, system-ui, sans-serif",
-  display: "'Satoshi', 'General Sans', 'Neue Montreal', 'Inter', ui-sans-serif, system-ui, sans-serif",
+  sans:    "'Lora', Georgia, ui-serif, serif",
+  display: "'Lora', Georgia, ui-serif, serif",
   mono:    "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace",
 } as const
 
 export const typography = {
   fontFamily: {
-    sans: ['Satoshi', 'General Sans', 'Neue Montreal', 'Inter', 'sans-serif'],
+    sans: ['Lora', 'Georgia', 'ui-serif', 'serif'],
   },
 
   // Editorial display — hero moments only

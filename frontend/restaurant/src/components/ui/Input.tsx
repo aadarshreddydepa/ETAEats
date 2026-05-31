@@ -30,7 +30,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       {label && <span className="block text-label text-text-muted mb-2">{label}</span>}
       <span
         className={cn(
-          'group flex items-center gap-2 rounded-lg border bg-surface px-4 py-3 transition-colors duration-base ease-standard',
+          'group flex items-center gap-2 rounded-sm border bg-surface px-4 py-3 transition-colors duration-base ease-standard',
           error
             ? 'border-error'
             : 'border-border focus-within:border-border-strong focus-within:bg-surface',

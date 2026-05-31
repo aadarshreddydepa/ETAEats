@@ -29,6 +29,7 @@ export function useAuth() {
       const { data } = await api.post<AuthResponse>('/auth/otp/verify/', {
         phone_number: phoneNumber,
         code,
+        app_type: 'restaurant',
       })
       if (data.user.role !== 'RESTAURANT_STAFF') {
         return { ok: false, reason: 'not_staff' }

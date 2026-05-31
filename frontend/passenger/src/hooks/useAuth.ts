@@ -34,6 +34,7 @@ export function useAuth() {
       const { data } = await api.post<AuthResponse>('/auth/otp/verify/', {
         phone_number: phoneNumber,
         code,
+        app_type: 'passenger',
       })
       setAuth(data.user, data.tokens.access, data.tokens.refresh)
       return true

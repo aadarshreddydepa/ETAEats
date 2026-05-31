@@ -1,7 +1,16 @@
 import type { Metadata, Viewport } from 'next'
+import { Lora } from 'next/font/google'
 import { Toaster } from 'sonner'
 import { Providers } from '@/components/layout/Providers'
 import './globals.css'
+
+const lora = Lora({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-lora',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'ETAEats — Kitchen Console',
@@ -16,14 +25,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="" />
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,800,900&f[]=general-sans@300,400,500,600,700&display=swap"
-        />
-      </head>
+    <html lang="en" className={lora.variable}>
       <body>
         <Providers>
           {children}

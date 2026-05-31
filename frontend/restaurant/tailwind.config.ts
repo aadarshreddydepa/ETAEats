@@ -84,8 +84,9 @@ const config: Config = {
         pill: 'var(--radius-pill)',
       },
       fontFamily: {
-        sans:    ['Satoshi', 'General Sans', 'Neue Montreal', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['Satoshi', 'General Sans', 'Neue Montreal', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans:    ['var(--font-lora)', 'Lora', 'Georgia', 'ui-serif', 'serif'],
+        display: ['var(--font-lora)', 'Lora', 'Georgia', 'ui-serif', 'serif'],
+        mono:    ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       fontSize: {
         'display-xl': ['56px', { lineHeight: '60px', letterSpacing: '-0.035em', fontWeight: '600' }],
@@ -115,6 +116,7 @@ const config: Config = {
         10: '40px',
         11: '44px',
         12: '48px',
+        13: '52px',
         14: '56px',
         16: '64px',
         20: '80px',

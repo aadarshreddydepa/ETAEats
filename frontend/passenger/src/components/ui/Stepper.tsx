@@ -19,8 +19,8 @@ export function Stepper({ value, onIncrement, onDecrement, size = 'md', min = 0,
   return (
     <div
       className={cn(
-        'inline-flex items-center select-none rounded-pill bg-primary text-text-on-dark shadow-e1',
-        size === 'sm' ? 'h-8' : 'h-10',
+        'inline-flex items-center select-none rounded-pill bg-primary text-text-on-dark',
+        size === 'sm' ? 'h-9' : 'h-11',
         className,
       )}
     >
@@ -31,7 +31,7 @@ export function Stepper({ value, onIncrement, onDecrement, size = 'md', min = 0,
         disabled={atMin}
         className={cn(
           'flex items-center justify-center transition-opacity disabled:opacity-40',
-          size === 'sm' ? 'w-8 h-8' : 'w-10 h-10',
+          size === 'sm' ? 'w-9 h-9' : 'w-11 h-11',
         )}
       >
         <Minus className={size === 'sm' ? 'h-3.5 w-3.5' : 'h-4 w-4'} />
@@ -46,7 +46,7 @@ export function Stepper({ value, onIncrement, onDecrement, size = 'md', min = 0,
         disabled={atMax}
         className={cn(
           'flex items-center justify-center transition-opacity disabled:opacity-40',
-          size === 'sm' ? 'w-8 h-8' : 'w-10 h-10',
+          size === 'sm' ? 'w-9 h-9' : 'w-11 h-11',
         )}
       >
         <Plus className={size === 'sm' ? 'h-3.5 w-3.5' : 'h-4 w-4'} />
