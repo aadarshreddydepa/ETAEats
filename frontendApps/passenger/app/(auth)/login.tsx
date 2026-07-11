@@ -94,7 +94,7 @@ export default function LoginScreen() {
                 }
                 value={formatPhoneDisplay(digits)}
                 onChangeText={(text) => setPhone(text.replace(/\D/g, '').slice(0, 10))}
-                error={error || undefined}
+                error={error}
                 autoFocus
                 accessibilityLabel="Mobile number"
               />

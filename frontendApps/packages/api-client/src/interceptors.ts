@@ -19,7 +19,9 @@ export function setupInterceptors(): void {
     async (error: AxiosError) => {
       const original = error.config as RetryableConfig | undefined;
 
-      if (!original || error.response?.status !== 401 || original._retry) {
+      const isRefreshEndpoint = original?.url?.includes('/auth/token/refresh/');
+
+      if (!original || error.response?.status !== 401 || original._retry || isRefreshEndpoint) {
         throw parseDomainError(error);
       }
 
