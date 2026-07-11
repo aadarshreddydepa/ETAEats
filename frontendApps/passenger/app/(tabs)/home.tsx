@@ -47,6 +47,7 @@ export default function HomeScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
   const { user, isAuthenticated, hasHydrated } = useAuthStore();
+  const totalCartItems = useCartStore((s) => s.totalItems());
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -144,7 +145,6 @@ export default function HomeScreen() {
   const orders = data?.results ?? [];
   const activeOrder = orders.find(isOrderActive);
   const recentOrders = orders.slice(0, 4);
-  const totalCartItems = useCartStore((s) => s.totalItems());
 
   return (
     <ScrollView

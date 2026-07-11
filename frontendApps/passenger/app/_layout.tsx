@@ -10,6 +10,7 @@ import { useTimeOfDay } from '../hooks/useTimeOfDay';
 import { useVersionCheck } from '../hooks/useVersionCheck';
 import ForceUpdateScreen from '../components/ForceUpdateScreen';
 import AnimatedSplash from '../components/AnimatedSplash';
+import CrashScreen from '../components/CrashScreen';
 import { useAuthStore, setAppPrefix, tokenStore } from '@eta/auth';
 import { initEnv, getEnv } from '@eta/utils';
 import {
@@ -117,6 +118,7 @@ export default function RootLayout() {
   const stackBg = isNight ? '#0F172A' : '#F5F5F2';
 
   return (
+    <CrashScreen>
     <SafeAreaProvider style={styles.flex}>
       <ThemeProvider theme={activeTheme}>
         <QueryClientProvider client={queryClient}>
@@ -146,6 +148,7 @@ export default function RootLayout() {
         </QueryClientProvider>
       </ThemeProvider>
     </SafeAreaProvider>
+    </CrashScreen>
   );
 }
 

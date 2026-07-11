@@ -57,7 +57,6 @@ export default function ProfileScreen() {
     clearCart();
     clearJourney();
     await clearAuth();
-    router.replace('/(auth)/login');
   }
 
   function InfoRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
