@@ -29,6 +29,7 @@ export function useAuth() {
       const { data } = await api.post<AuthResponse>('/auth/otp/verify/', {
         phone_number: phoneNumber,
         code,
+        app_type: 'admin',
       })
       if (data.user.role !== 'ADMIN') {
         return { ok: false, reason: 'not_admin' }

@@ -67,7 +67,9 @@ export default function HomePage() {
   useEffect(() => {
     if (!data?.results?.length) return;
     const live = data.results.find(
-      (o) => !["PICKED_UP", "CANCELLED"].includes(o.status),
+      (o) =>
+        !['PICKED_UP', 'CANCELLED'].includes(o.status) &&
+        !['UNPAID', 'FAILED'].includes(o.payment_status)
     );
     if (live) {
       setActiveOrder({

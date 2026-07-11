@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
-import { ShoppingBag, Trash2 } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ShoppingBag, Trash2, Plus } from 'lucide-react'
 import { isAxiosError } from 'axios'
 import { toast } from 'sonner'
 import { Button, Card, EmptyState, IconButton, Stepper } from '@/components/ui'
@@ -87,58 +87,94 @@ export default function CartPage() {
           onBack={() => router.back()}
         />
 
-        <div className="pb-44 space-y-4">
-          <Card tone="default" padding="none" radius="card" shadow="e1" className="px-5 py-2">
-            {items.map((item) => (
-              <motion.div
-                key={item.id}
-                layout
-                className="flex items-center gap-4 py-4 border-b border-border-subtle last:border-0"
-              >
-                <div className="h-14 w-14 flex-shrink-0 rounded-xl bg-accent-soft-cream border border-border-subtle flex items-center justify-center text-2xl">
-                  🍛
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-body font-semibold text-text-primary truncate">{item.menu_item_name}</p>
-                  <p className="text-body-sm text-text-tertiary mt-0.5">₹{item.unit_price} each</p>
-                </div>
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <Stepper
-                    value={item.quantity}
-                    onIncrement={() => handleUpdate(item.id, item.quantity + 1)}
-                    onDecrement={() =>
-                      item.quantity > 1 ? handleUpdate(item.id, item.quantity - 1) : handleRemove(item.id)
-                    }
-                    size="sm"
-                  />
-                  <IconButton aria-label="Remove" tone="ghost" size="sm" onClick={() => handleRemove(item.id)}>
-                    <Trash2 className="h-4 w-4" strokeWidth={1.7} />
-                  </IconButton>
-                </div>
-              </motion.div>
-            ))}
-          </Card>
+        {/* Two-column on desktop, stacked on mobile */}
+        <div className="pb-36 lg:pb-12 lg:flex lg:gap-8 lg:items-start mt-2">
 
-          <Card tone="sunk" padding="md" radius="card" bordered shadow="none">
-            <p className="text-label text-text-muted">Summary</p>
-            <div className="mt-3 flex justify-between text-body-sm text-text-tertiary">
-              <span>Subtotal</span>
-              <span className="text-text-primary font-medium">₹{subtotal.toFixed(2)}</span>
+          {/* ── Left column: item list ── */}
+          <div className="flex-1 min-w-0">
+            <Card tone="default" padding="none" radius="card" shadow="e1" className="px-5 py-2">
+              <AnimatePresence initial={false}>
+                {items.map((item, index) => {
+                  const lineTotal = parseFloat(item.unit_price) * item.quantity
+                  const letter = item.menu_item_name.charAt(0).toUpperCase()
+                  const isLast = index === items.length - 1
+
+                  return (
+                    <motion.div
+                      key={item.id}
+                      layout
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div
+                        className={`flex items-center gap-3 py-4 ${
+                          isLast ? '' : 'border-b border-border-subtle'
+                        }`}
+                      >
+                        {/* Letter avatar */}
+                        <div className="h-11 w-11 flex-shrink-0 rounded-xl bg-surface2 border border-border-subtle flex items-center justify-center">
+                          <span className="text-h4 text-text-muted leading-none">{letter}</span>
+                        </div>
+
+                        {/* Name + unit price */}
+                        <div className="flex-1 min-w-0">
+                          <p className="text-body font-semibold text-text-primary truncate">
+                            {item.menu_item_name}
+                          </p>
+                          <p className="text-body-sm text-text-tertiary mt-0.5">
+                            ₹{item.unit_price} each
+                          </p>
+                        </div>
+
+                        {/* Stepper · line total · remove */}
+                        <div className="flex items-center gap-2 flex-shrink-0">
+                          <Stepper
+                            value={item.quantity}
+                            onIncrement={() => handleUpdate(item.id, item.quantity + 1)}
+                            onDecrement={() =>
+                              item.quantity > 1
+                                ? handleUpdate(item.id, item.quantity - 1)
+                                : handleRemove(item.id)
+                            }
+                            size="sm"
+                          />
+                          <span className="w-16 text-right text-body font-semibold text-text-primary tabular-nums">
+                            ₹{lineTotal.toFixed(0)}
+                          </span>
+                          <IconButton
+                            aria-label={`Remove ${item.menu_item_name}`}
+                            tone="ghost"
+                            size="sm"
+                            onClick={() => handleRemove(item.id)}
+                          >
+                            <Trash2 className="h-4 w-4" strokeWidth={1.7} />
+                          </IconButton>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )
+                })}
+              </AnimatePresence>
+            </Card>
+
+            {/* Add more items */}
+            <div className="mt-3 pl-1">
+              <Button variant="ghost" size="sm" onClick={() => router.back()}>
+                <Plus className="h-4 w-4" />
+                Add more items
+              </Button>
             </div>
-            <div className="mt-2 flex justify-between text-body-sm text-text-tertiary">
-              <span>Delivery</span>
-              <span className="text-text-primary font-medium">Pickup · Free</span>
-            </div>
-            <div className="mt-3 pt-3 border-t border-border-subtle flex justify-between items-baseline">
-              <span className="text-h4 text-text-primary">Total</span>
-              <span className="text-h2 text-text-primary">₹{subtotal.toFixed(2)}</span>
-            </div>
-          </Card>
+          </div>
+
         </div>
       </div>
 
-      <div className="mobile-floating-cta px-4 lg:pr-10 lg:pl-[calc(var(--rail-width,18rem)+4rem)] xl:pl-[calc(var(--rail-width,18rem)+5rem)]">
-        <div className="mx-auto w-full max-w-md lg:max-w-3xl">
+      {/* Checkout button — fixed bottom bar on mobile only */}
+      <div className="lg:hidden mobile-floating-cta px-4">
+        <div className="mx-auto w-full max-w-md">
           <Button fullWidth size="lg" onClick={handleCheckout}>
             Place order · ₹{subtotal.toFixed(0)}
           </Button>

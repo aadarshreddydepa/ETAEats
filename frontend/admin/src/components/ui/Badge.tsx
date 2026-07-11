@@ -1,29 +1,58 @@
 import { cn } from '@/lib/utils'
 
-type BadgeVariant = 'primary' | 'success' | 'warning' | 'error' | 'muted' | 'info'
+type BadgeVariant =
+  | 'neutral'
+  | 'powder'
+  | 'cream'
+  | 'peach'
+  | 'mint'
+  | 'success'
+  | 'warning'
+  | 'error'
+  | 'info'
+  | 'muted'
+  | 'primary'
+
+type BadgeSize = 'sm' | 'md'
 
 interface BadgeProps {
   variant?: BadgeVariant
+  size?: BadgeSize
   dot?: boolean
   className?: string
   children: React.ReactNode
 }
 
-export function Badge({ variant = 'primary', dot, className, children }: BadgeProps) {
-  const variants: Record<BadgeVariant, string> = {
-    primary: 'bg-primary-soft text-primary border-primary/30',
-    success: 'bg-success-bg text-success border-success/30',
-    warning: 'bg-warning-bg text-warning border-warning/30',
-    error:   'bg-error-bg text-error border-error/30',
-    muted:   'bg-surface2 text-text-secondary border-border',
-    info:    'bg-blue-50 text-info border-info/30',
-  }
+const variants: Record<BadgeVariant, string> = {
+  neutral: 'bg-surface2 text-text-tertiary border-border',
+  muted:   'bg-surface2 text-text-tertiary border-border',
+  powder:  'bg-accent-powder-blue text-accent-ink-powder-blue border-transparent',
+  cream:   'bg-accent-soft-cream text-accent-ink-soft-cream border-transparent',
+  peach:   'bg-accent-peach text-accent-ink-peach border-transparent',
+  mint:    'bg-accent-muted-mint text-accent-ink-muted-mint border-transparent',
+  success: 'bg-success-bg text-success border-success-border',
+  warning: 'bg-warning-bg text-warning border-warning-border',
+  error:   'bg-error-bg text-error border-error-border',
+  info:    'bg-info-bg text-info border-info-border',
+  primary: 'bg-accent-powder-blue text-accent-ink-powder-blue border-transparent',
+}
+
+const sizes: Record<BadgeSize, string> = {
+  sm: 'h-5 px-2 text-[10.5px] tracking-[0.04em]',
+  md: 'h-6 px-2.5 text-[11.5px] tracking-[0.03em]',
+}
+
+export function Badge({ variant = 'neutral', size = 'md', dot, className, children }: BadgeProps) {
   return (
-    <span className={cn(
-      'inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-xs font-semibold',
-      variants[variant], className,
-    )}>
-      {dot && <span className={cn('h-1.5 w-1.5 rounded-full bg-current')} />}
+    <span
+      className={cn(
+        'inline-flex items-center gap-1.5 rounded-pill border font-semibold uppercase',
+        sizes[size],
+        variants[variant],
+        className,
+      )}
+    >
+      {dot && <span className="h-1.5 w-1.5 rounded-full bg-current" />}
       {children}
     </span>
   )

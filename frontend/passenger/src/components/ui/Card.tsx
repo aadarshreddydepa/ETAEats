@@ -3,11 +3,12 @@ import { cn } from '@/lib/utils'
 
 type CardTone =
   | 'default'   // white card
-  | 'elevated' // soft-cream warmth (e.g. "recommended")
-  | 'powder'   // powder blue atmosphere (e.g. live/info)
-  | 'peach'    // peach atmosphere (e.g. ready/arrival)
-  | 'mint'     // mint atmosphere (e.g. confirmed/healthy)
-  | 'sunk'     // recessed ghost surface
+  | 'elevated'  // subtly elevated surface (#FAFAF8)
+  | 'cream'     // soft-cream warmth (e.g. "recommended")
+  | 'powder'    // powder blue atmosphere (e.g. live/info)
+  | 'peach'     // peach atmosphere (e.g. ready/arrival)
+  | 'mint'      // mint atmosphere (e.g. confirmed/healthy)
+  | 'sunk'      // recessed ghost surface
 
 type CardPadding = 'none' | 'sm' | 'md' | 'lg'
 type CardRadius = 'md' | 'lg' | 'xl' | 'card' | 'hero'
@@ -24,17 +25,18 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const tones: Record<CardTone, string> = {
   default:  'bg-surface',
-  elevated: 'bg-accent-soft-cream',
+  elevated: 'bg-surface2',
+  cream:    'bg-accent-soft-cream',
   powder:   'bg-accent-powder-blue',
   peach:    'bg-accent-peach',
   mint:     'bg-accent-muted-mint',
-  sunk:     'bg-surface2',
+  sunk:     'bg-sunk',
 }
 
 const paddings: Record<CardPadding, string> = {
   none: 'p-0',
-  sm:   'p-4',
-  md:   'p-5',
+  sm:   'p-3',
+  md:   'p-4',
   lg:   'p-6',
 }
 
@@ -77,7 +79,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
         radii[radius],
         paddings[padding],
         bordered && tone === 'default' && 'border border-border',
-        bordered && tone === 'sunk' && 'border border-border-subtle',
+        bordered && (tone === 'sunk' || tone === 'elevated') && 'border border-border-subtle',
         shadows[shadow],
         interactive &&
           'cursor-pointer transition-all duration-base ease-standard hover:-translate-y-0.5 hover:shadow-e3 active:translate-y-0 active:scale-[0.99]',

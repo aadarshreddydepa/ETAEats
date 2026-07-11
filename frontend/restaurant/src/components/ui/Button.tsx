@@ -47,10 +47,10 @@ const variants: Record<ButtonVariant, string> = {
 }
 
 const sizes: Record<ButtonSize, string> = {
-  sm: 'h-9  px-3.5 text-[13px] rounded-lg',
-  md: 'h-11 px-5   text-[15px] rounded-lg',
-  lg: 'h-13 px-6   text-[15px] rounded-lg',
-  xl: 'h-14 px-7   text-[16px] rounded-lg',
+  sm: 'h-9  px-3.5 text-[13px] rounded-sm',
+  md: 'h-11 px-5   text-[15px] rounded-sm',
+  lg: 'h-13 px-6   text-[15px] rounded-sm',
+  xl: 'h-14 px-7   text-[16px] rounded-sm',
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(

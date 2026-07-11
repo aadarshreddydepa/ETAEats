@@ -21,7 +21,7 @@ export function EmptyState({ icon, title, description, action, tone = 'neutral',
   return (
     <div className={cn('flex flex-col items-center text-center px-6 py-10', className)}>
       {icon && (
-        <div className={cn('mb-5 h-16 w-16 rounded-hero border flex items-center justify-center', bubbleTones[tone])}>
+        <div className={cn('mb-5 h-[72px] w-[72px] rounded-hero border flex items-center justify-center', bubbleTones[tone])}>
           {icon}
         </div>
       )}
