@@ -161,7 +161,9 @@ export default function CheckoutPage() {
         () => {
           toast('Payment cancelled.')
           setLoading(false)
-        },
+          // Best-effort cleanup — marks order as FAILED so it doesn't float on home
+          api.post('/payments/razorpay/cancel/', { order_id: order.id }).catch(() => {})
+        } 
       )
     } catch (err: unknown) {
       const axiosErr = err as { response?: { data?: { error?: { message?: string } } } }
